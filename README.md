@@ -5,6 +5,6 @@ Build AnimationChart using SwiftUI
 - セグメントタップでグラフがアニメーションされる簡単なアプリをSwiftUIで作ってみる
 
 ## スクリーンショット
-![header](./screen.jpg)
+![header](./screen.png)
 
 
