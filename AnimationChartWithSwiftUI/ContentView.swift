@@ -12,18 +12,25 @@ struct ContentView: View {
     
     @State var pickerSelectedItem = 1
     
+    //[segment][graph]
+    @State var dataPoints: [[CGFloat]] = [
+        [50, 100, 150, 30, 40],
+        [50, 180, 70, 100, 160],
+        [100, 180, 60, 80, 120],
+    ]
+    
     var body: some View {
         
         ZStack {
             
-            Color(#colorLiteral(red: 0.5202698112, green: 0.9589678645, blue: 0.7248792052, alpha: 1)).edgesIgnoringSafeArea(.all)
+            Color("appBackground").edgesIgnoringSafeArea(.all)
             
             VStack {
             
                  Text("Hello, World!")
                     .font(.system(size: 34))
                     .fontWeight(.heavy)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("textColor"))
                 
                 Picker(selection: $pickerSelectedItem, label: Text("")) {
                     Text("Weekday").tag(0)
@@ -33,11 +40,15 @@ struct ContentView: View {
                     .padding(.horizontal, 24)
                 
                 HStack (spacing: 16) {
-                    BarChart(value: 50)
-                    BarChart(value: 100)
-                    BarChart(value: 150)
-                    
+                    BarChart(value: dataPoints[pickerSelectedItem][0], dayTitle: "Sun")
+                    BarChart(value: dataPoints[pickerSelectedItem][1], dayTitle: "Mon")
+                    BarChart(value: dataPoints[pickerSelectedItem][2], dayTitle: "Tue")
+                    BarChart(value: dataPoints[pickerSelectedItem][3], dayTitle: "Wed")
+                    BarChart(value: dataPoints[pickerSelectedItem][4], dayTitle: "Thu")
+                    BarChart(value: dataPoints[pickerSelectedItem][3], dayTitle: "Fri")
+                    BarChart(value: dataPoints[pickerSelectedItem][4], dayTitle: "Sat")
                 }.padding(.top, 24)
+                    .animation(.default)
                 
             }
         }
@@ -48,7 +59,7 @@ struct ContentView: View {
 struct BarChart: View {
     
     var value: CGFloat = 0
-    
+    var dayTitle: String = ""
     var body: some View {
         VStack {
             ZStack(alignment: .bottom) {
@@ -57,7 +68,8 @@ struct BarChart: View {
                 Capsule().frame(width: 30, height: value)
                     .foregroundColor(.white)
             }
-            Text("D").padding(.top, 8)
+            Text(dayTitle).padding(.top, 8)
+            .foregroundColor(Color("textColor"))
         }
     }
 }
